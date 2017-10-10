@@ -54,6 +54,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  device-management:
+    image: sitewhere/service-device-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
