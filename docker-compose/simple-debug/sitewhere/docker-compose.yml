@@ -4,6 +4,8 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    volumes:
+      - ${VOLUME_ROOT}/zookeeper:/opt/zookeeper-3.4.9/data
 
   web:
     image: elkozmon/zoonavigator-web:latest
@@ -35,9 +37,12 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: ${ZK_HOSTNAME}:${ZK_PORT}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ${VOLUME_ROOT}/kafka:/kafka
 
   mongodb:
     image: mongo:3
+    volumes:
+      - ${VOLUME_ROOT}/mongodb:/data/db
 
   instance-management:
     image: sitewhere/service-instance-management:${SW_VERSION}
