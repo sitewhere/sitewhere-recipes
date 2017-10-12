@@ -4,6 +4,8 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    environment:
+      ZOO_LOG4J_PROP: WARN
     volumes:
       - ${VOLUME_ROOT}/zookeeper:/opt/zookeeper-3.4.9/data
 
