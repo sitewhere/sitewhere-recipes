@@ -36,7 +36,7 @@ services:
       - "9092:9092"
     environment:
       KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: ${ZK_HOSTNAME}:${ZK_PORT}
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       LOG4J_LOGGER_KAFKA: WARN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
