@@ -67,6 +67,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  event-management:
+    image: sitewhere/service-event-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   asset-management:
     image: sitewhere/service-asset-management:${SW_VERSION}
     env_file:
