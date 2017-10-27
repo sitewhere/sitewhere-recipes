@@ -88,6 +88,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  event-sources:
+    image: sitewhere/service-event-sources:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
