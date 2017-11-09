@@ -110,6 +110,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  outbound-processing:
+    image: sitewhere/service-outbound-processing:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
