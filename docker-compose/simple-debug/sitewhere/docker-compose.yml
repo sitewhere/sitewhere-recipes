@@ -120,6 +120,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  batch-operations:
+    image: sitewhere/service-batch-operations:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
