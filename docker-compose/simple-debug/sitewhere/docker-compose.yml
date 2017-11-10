@@ -125,6 +125,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  command-destinations:
+    image: sitewhere/service-command-destinations:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
