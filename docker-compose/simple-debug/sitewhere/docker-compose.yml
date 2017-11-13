@@ -140,6 +140,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  label-generation:
+    image: sitewhere/service-label-generation:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
