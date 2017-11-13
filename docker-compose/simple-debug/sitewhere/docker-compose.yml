@@ -135,6 +135,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  presence-management:
+    image: sitewhere/service-presence-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   web-rest:
     image: sitewhere/service-web-rest:${SW_VERSION}
     ports:
