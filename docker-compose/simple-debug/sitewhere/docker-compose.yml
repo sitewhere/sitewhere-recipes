@@ -88,6 +88,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  event-search:
+    image: sitewhere/service-event-search:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   asset-management:
     image: sitewhere/service-asset-management:${SW_VERSION}
     env_file:
