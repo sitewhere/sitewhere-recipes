@@ -147,6 +147,11 @@ services:
     env_file:
       - sitewhere-instance.env
 
+  streaming-media:
+    image: sitewhere/service-streaming-media:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
   label-generation:
     image: sitewhere/service-label-generation:${SW_VERSION}
     env_file:
