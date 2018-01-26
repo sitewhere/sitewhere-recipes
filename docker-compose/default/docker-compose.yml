@@ -114,5 +114,4 @@ services:
 networks:
   default:
     external:
-      name: sitewhere
- 
+      name: infrastructure_sitewhere
