@@ -110,3 +110,9 @@ services:
       - "8080:8080"
     env_file:
       - sitewhere-instance.env
+      
+networks:
+  default:
+    external:
+      name: sitewhere
+ 

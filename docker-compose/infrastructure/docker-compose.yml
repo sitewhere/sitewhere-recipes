@@ -57,3 +57,7 @@ services:
     ports:
       - "9411:9411"
       - "16686:16686" 
+      
+networks: 
+    sitewhere: 
+        driver: overlay
