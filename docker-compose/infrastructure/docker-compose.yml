@@ -2,6 +2,8 @@ version: '3.2'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
+    networks: 
+      - sitewhere
     ports:
       - "2181:2181"
     environment:
@@ -11,6 +13,8 @@ services:
 
   zoonavigator-web:
     image: elkozmon/zoonavigator-web:latest
+    networks: 
+      - sitewhere
     ports:
      - "8000:8000"
     environment:
@@ -24,13 +28,16 @@ services:
 
   zoonavigator-api:
     image: elkozmon/zoonavigator-api:latest
-    environment:
+    networks: 
+      - sitewhere
+    environment: 
       SERVER_HTTP_PORT: 9000
-    restart: always
 
   kafka: 
     image: wurstmeister/kafka:1.0.0
-    ports:
+    networks: 
+      - sitewhere
+    ports: 
       - target: 9094
         published: 9094
         protocol: tcp
@@ -54,7 +61,9 @@ services:
     expose:
       - "9411"
       - "16686"
-    ports:
+    networks: 
+      - sitewhere
+    ports: 
       - "9411:9411"
       - "16686:16686" 
       
