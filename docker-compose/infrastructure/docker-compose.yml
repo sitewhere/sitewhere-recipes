@@ -28,18 +28,25 @@ services:
       SERVER_HTTP_PORT: 9000
     restart: always
 
-  kafka:
-    image: wurstmeister/kafka
+  kafka: 
+    image: wurstmeister/kafka-docker:latest
     ports:
-      - "9092:9092"
+      - target: 9094
+        published: 9094
+        protocol: tcp
+        mode: host
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
+      HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"      
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      LOG4J_LOGGER_KAFKA: INFO
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_ADVERTISED_PROTOCOL_NAME: OUTSIDE
+      KAFKA_ADVERTISED_PORT: 9094
+      KAFKA_PROTOCOL_NAME: INSIDE
+      KAFKA_PORT: 9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${VOLUME_ROOT}/kafka:/kafka
-
+      
   jaeger:
     image: jaegertracing/all-in-one
     environment:
