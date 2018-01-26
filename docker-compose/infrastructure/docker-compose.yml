@@ -29,7 +29,7 @@ services:
     restart: always
 
   kafka: 
-    image: wurstmeister/kafka-docker:latest
+    image: wurstmeister/kafka:1.0.0
     ports:
       - target: 9094
         published: 9094
