@@ -44,7 +44,7 @@ services:
         mode: host
     environment:
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
-      KAFKA_BROKER_ID: 1001
+      KAFKA_BROKER_ID: 999
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_ADVERTISED_PROTOCOL_NAME: OUTSIDE
