@@ -102,7 +102,7 @@ services:
       - sitewhere-instance.env
       
 networks:
-    sitewhere:
+    default:
       name: sitewhere
       external: true
       

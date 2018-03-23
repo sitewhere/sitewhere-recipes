@@ -94,3 +94,5 @@ services:
 networks: 
     sitewhere: 
         driver: overlay
+        name: sitewhere
+        
