@@ -68,6 +68,20 @@ services:
       - "9411:9411"
       - "16686:16686" 
       
+  mongodb:
+    image: mongo:3
+    volumes:
+      - ${VOLUME_ROOT}/mongodb:/data/db
+    networks: 
+      - sitewhere
+      
+  mosquitto:
+    image: eclipse-mosquitto:1.4.12
+    ports:
+      - "1883:1883"
+    networks: 
+      - sitewhere
+          
 networks: 
     sitewhere: 
         driver: overlay

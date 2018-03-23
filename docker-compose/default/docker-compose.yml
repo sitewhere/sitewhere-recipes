@@ -1,15 +1,5 @@
 version: '3.2'
 services: 
-  mongodb:
-    image: mongo:3
-    volumes:
-      - ${VOLUME_ROOT}/mongodb:/data/db
-      
-  mosquitto:
-    image: eclipse-mosquitto:1.4.12
-    ports:
-      - "1883:1883"
-      
   instance-management:
     image: sitewhere/service-instance-management:${SW_VERSION}
     env_file:
