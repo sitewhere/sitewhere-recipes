@@ -2,8 +2,6 @@ version: '3.2'
 services:
   zookeeper:
     image: wurstmeister/zookeeper
-    networks: 
-      - sitewhere
     ports:
       - "2181:2181"
     environment:
@@ -13,8 +11,6 @@ services:
 
   zoonavigator-web:
     image: elkozmon/zoonavigator-web:latest
-    networks: 
-      - sitewhere
     ports:
      - "8000:8000"
     environment:
@@ -28,15 +24,11 @@ services:
 
   zoonavigator-api:
     image: elkozmon/zoonavigator-api:latest
-    networks: 
-      - sitewhere
     environment: 
       SERVER_HTTP_PORT: 9000
 
   kafka: 
     image: wurstmeister/kafka:1.0.0
-    networks: 
-      - sitewhere
     ports: 
       - target: 9094
         published: 9094
@@ -62,8 +54,6 @@ services:
     expose:
       - "9411"
       - "16686"
-    networks: 
-      - sitewhere
     ports: 
       - "9411:9411"
       - "16686:16686" 
@@ -72,17 +62,13 @@ services:
     image: mongo:3
     volumes:
       - ${VOLUME_ROOT}/mongodb:/data/db
-    networks: 
-      - sitewhere
       
   mosquitto:
     image: eclipse-mosquitto:1.4.12
     ports:
       - "1883:1883"
-    networks: 
-      - sitewhere
           
 networks: 
-    sitewhere: 
+    default: 
         driver: overlay
         name: sitewhere
