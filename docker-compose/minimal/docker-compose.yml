@@ -1,0 +1,63 @@
+version: '3.5'
+services: 
+  instance-management:
+    image: sitewhere/service-instance-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  user-management:
+    image: sitewhere/service-user-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  tenant-management:
+    image: sitewhere/service-tenant-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  device-management:
+    image: sitewhere/service-device-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  event-management:
+    image: sitewhere/service-event-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  asset-management:
+    image: sitewhere/service-asset-management:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  event-sources:
+    image: sitewhere/service-event-sources:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+    environment:
+      mqtt.host: mosquitto
+
+  inbound-processing:
+    image: sitewhere/service-inbound-processing:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+
+  outbound-connectors:
+    image: sitewhere/service-outbound-connectors:${SW_VERSION}
+    env_file:
+      - sitewhere-instance.env
+    environment:
+      mqtt.host: mosquitto
+
+  web-rest:
+    image: sitewhere/service-web-rest:${SW_VERSION}
+    ports:
+      - "8080:8080"
+    env_file:
+      - sitewhere-instance.env
+      
+networks:
+    default:
+      name: sitewhere
+      external: true
+      
