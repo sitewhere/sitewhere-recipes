@@ -79,8 +79,8 @@ services:
     env_file:
       - sitewhere-instance.env
 
-  presence-management:
-    image: sitewhere/service-presence-management:${SW_VERSION}
+  device-state:
+    image: sitewhere/service-device-state:${SW_VERSION}
     env_file:
       - sitewhere-instance.env
 
