@@ -4,9 +4,6 @@ services:
     image: sitewhere/service-instance-management:${SW_VERSION}
     ports:
       - "8001:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -14,9 +11,6 @@ services:
     image: sitewhere/service-user-management:${SW_VERSION}
     ports:
       - "8002:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -24,9 +18,6 @@ services:
     image: sitewhere/service-tenant-management:${SW_VERSION}
     ports:
       - "8003:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -34,9 +25,6 @@ services:
     image: sitewhere/service-device-management:${SW_VERSION}
     ports:
       - "8004:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -44,9 +32,6 @@ services:
     image: sitewhere/service-event-management:${SW_VERSION}
     ports:
       - "8005:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -54,9 +39,6 @@ services:
     image: sitewhere/service-asset-management:${SW_VERSION}
     ports:
       - "8006:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -64,9 +46,6 @@ services:
     image: sitewhere/service-event-sources:${SW_VERSION}
     ports:
       - "8007:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
     environment:
@@ -76,9 +55,6 @@ services:
     image: sitewhere/service-inbound-processing:${SW_VERSION}
     ports:
       - "8008:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
 
@@ -86,9 +62,6 @@ services:
     image: sitewhere/service-outbound-connectors:${SW_VERSION}
     ports:
       - "8009:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
     environment:
@@ -99,9 +72,6 @@ services:
     ports:
       - "8080:8080"
       - "8010:8001"
-    environment:
-      - JPDA_ADDRESS="8001"
-      - JPDA_TRANSPORT="dt_socket"
     env_file:
       - sitewhere-instance.env
       
@@ -109,4 +79,4 @@ networks:
     default:
       name: sitewhere
       external: true
-      
+ 
