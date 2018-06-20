@@ -4,7 +4,7 @@ services:
     image: sitewhere/service-instance-management:${SW_VERSION}
     ports:
       - "8001:8001"
-      - "1101:1099"
+      - "1101:1101"
     env_file:
       - sitewhere-instance.env
 
@@ -12,7 +12,7 @@ services:
     image: sitewhere/service-user-management:${SW_VERSION}
     ports:
       - "8002:8001"
-      - "1102:1099"
+      - "1102:1102"
     env_file:
       - sitewhere-instance.env
 
@@ -20,7 +20,7 @@ services:
     image: sitewhere/service-tenant-management:${SW_VERSION}
     ports:
       - "8003:8001"
-      - "1103:1099"
+      - "1103:1103"
     env_file:
       - sitewhere-instance.env
 
@@ -28,7 +28,7 @@ services:
     image: sitewhere/service-device-management:${SW_VERSION}
     ports:
       - "8004:8001"
-      - "1104:1099"
+      - "1104:1104"
     env_file:
       - sitewhere-instance.env
 
@@ -36,7 +36,7 @@ services:
     image: sitewhere/service-event-management:${SW_VERSION}
     ports:
       - "8005:8001"
-      - "1105:1099"
+      - "1105:1105"
     env_file:
       - sitewhere-instance.env
 
@@ -44,7 +44,7 @@ services:
     image: sitewhere/service-asset-management:${SW_VERSION}
     ports:
       - "8006:8001"
-      - "1106:1099"
+      - "1106:1106"
     env_file:
       - sitewhere-instance.env
 
@@ -52,7 +52,7 @@ services:
     image: sitewhere/service-event-sources:${SW_VERSION}
     ports:
       - "8007:8001"
-      - "1107:1099"
+      - "1107:1107"
     env_file:
       - sitewhere-instance.env
     environment:
@@ -62,7 +62,7 @@ services:
     image: sitewhere/service-inbound-processing:${SW_VERSION}
     ports:
       - "8008:8001"
-      - "1108:1099"
+      - "1108:1108"
     env_file:
       - sitewhere-instance.env
 
@@ -70,7 +70,7 @@ services:
     image: sitewhere/service-outbound-connectors:${SW_VERSION}
     ports:
       - "8009:8001"
-      - "1109:1099"
+      - "1109:1109"
     env_file:
       - sitewhere-instance.env
     environment:
@@ -81,7 +81,7 @@ services:
     ports:
       - "8080:8080"
       - "8010:8001"
-      - "1110:1099"
+      - "1110:1110"
     env_file:
       - sitewhere-instance.env
 
