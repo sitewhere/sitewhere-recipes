@@ -84,6 +84,14 @@ services:
       - "1110:1099"
     env_file:
       - sitewhere-instance.env
+
+  device-state:
+    image: sitewhere/service-device-state:${SW_VERSION}
+    ports:
+      - "8011:8001"
+      - "1111:1099"
+    env_file:
+      - sitewhere-instance.env
       
 networks:
     default:
