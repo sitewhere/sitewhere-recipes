@@ -92,6 +92,14 @@ services:
       - "1111:1099"
     env_file:
       - sitewhere-instance.env
+
+  command-delivery:
+    image: sitewhere/service-command-delivery:${SW_VERSION}
+    ports:
+      - "8012:8001"
+      - "1112:1099"
+    env_file:
+      - sitewhere-instance.env
       
 networks:
     default:
