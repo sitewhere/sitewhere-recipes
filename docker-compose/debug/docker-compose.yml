@@ -100,6 +100,14 @@ services:
       - "1112:1099"
     env_file:
       - sitewhere-instance.env
+
+  device-registration:
+    image: sitewhere/service-device-registration:${SW_VERSION}
+    ports:
+      - "8013:8001"
+      - "1113:1099"
+    env_file:
+      - sitewhere-instance.env
       
 networks:
     default:
