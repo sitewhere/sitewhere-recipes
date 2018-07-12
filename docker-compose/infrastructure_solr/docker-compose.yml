@@ -10,3 +10,9 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - sitewhere
+      
+networks:
+    default:
+      name: sitewhere
+      external: true
+      
