@@ -78,6 +78,8 @@ services:
     image: sitewhere/service-command-delivery:${SW_VERSION}
     env_file:
       - sitewhere-instance.env
+    environment:
+      mqtt.host: mosquitto
 
   device-state:
     image: sitewhere/service-device-state:${SW_VERSION}
