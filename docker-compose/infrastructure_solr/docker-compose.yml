@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  solr:
+    image: solr
+    ports:
+     - "8983:8983"
+    volumes:
+      - ${VOLUME_ROOT}/solr:/opt/solr/server/solr/sitewhere
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - sitewhere
