@@ -110,6 +110,14 @@ services:
       - "1113:1099"
     env_file:
       - sitewhere-instance.env
+  
+  event-search:
+    image: sitewhere/service-event-search:${SW_VERSION}
+    ports:
+      - "8014:8001"
+      - "1114:1099"
+    env_file:
+      - sitewhere-instance.env
       
 networks:
     default:
