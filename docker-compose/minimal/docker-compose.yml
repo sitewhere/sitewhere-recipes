@@ -32,6 +32,8 @@ services:
 
   event-sources:
     image: sitewhere/service-event-sources:${SW_VERSION}
+    ports:
+      - "8500-9000:8500-9000"
     env_file:
       - sitewhere-instance.env
     environment:

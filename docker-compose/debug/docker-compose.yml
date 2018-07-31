@@ -53,6 +53,7 @@ services:
     ports:
       - "8007:8001"
       - "1107:1107"
+      - "8500-9000:8500-9000"
     env_file:
       - sitewhere-instance.env
     environment:
