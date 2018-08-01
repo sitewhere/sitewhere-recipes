@@ -33,7 +33,8 @@ services:
   event-sources:
     image: sitewhere/service-event-sources:${SW_VERSION}
     ports:
-      - "8500-9000:8500-9000"
+      - "8500-8999:8500-8999/udp"
+      - "8500-8999:8500-8999/tcp"
     env_file:
       - sitewhere-instance.env
     environment:
