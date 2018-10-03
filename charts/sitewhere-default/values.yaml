@@ -26,6 +26,13 @@ kafka:
   service:
     port: 9094
 
+jaeger:
+  image: jaegertracing/all-in-one
+  replicaCount: 1
+  service:
+    ports:
+      zipkin: "9411"
+      ui: "16686"
 
 clusterDomain: cluster.local
 
