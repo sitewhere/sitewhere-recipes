@@ -1,0 +1,59 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "sitewhere-default.name" . }}-kookeeper
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
+    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-zookeeper
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-zookeeper
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-zookeeper
+          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.image }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.zookeeper.service.port }}
+              name: zookeeper
+              protocol: TCP
+          env:       
+            - name: "ZOOKEEPER_LOG4J_PROP"
+              value: "INFO"
+          volumeMounts:
+            - name: {{ include "sitewhere-default.name" . }}-kookeeper-pv
+              mountPath: /opt/zookeeper-3.4.9/data
+        - name: {{ .Chart.Name }}-zoonavigator
+          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.zoonavigator.image }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:       
+            - name: "API_HOST"
+              value: "localhost"
+            - name: "API_PORT"
+              value: "9000"
+          ports:
+            - containerPort: {{ .Values.zookeeper.service.port }}
+              name: zoonav-port
+              protocol: TCP
+        - name: {{ .Chart.Name }}-zoonavigator-api
+          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.api.image }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:       
+            - name: "SERVER_HTTP_PORT"
+              value: "9000"
+          ports:
+            - containerPort: 9000
+      volumes:
+        - name: {{ include "sitewhere-default.name" . }}-kookeeper-pv
+          persistentVolumeClaim:
+            claimName: {{ include "sitewhere-default.name" . }}-kookeeper-pv-claim

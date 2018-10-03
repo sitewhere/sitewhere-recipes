@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sitewhere-default.name" . }}-kookeeper-pv-claim
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
+    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
