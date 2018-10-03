@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "sitewhere-default.name" . }}-mosquitto
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
+    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.mosquitto.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mosquitto
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mosquitto
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-mosquitto
+          image: "{{ .Values.image.registry }}/{{ .Values.mosquitto.image }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.mosquitto.service.port }}
+              name: mosquitto-port
+              protocol: TCP

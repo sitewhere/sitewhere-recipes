@@ -40,6 +40,12 @@ mongodb:
   service:
     port: 27017
 
+mosquitto:
+  image: eclipse-mosquitto:1.4.12
+  replicaCount: 1
+  service:
+    port: 1883
+
 clusterDomain: cluster.local
 
 ## Kubernetes service type
