@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "sitewhere-default.name" . }}-mongodb
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
+    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.mongodb.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mongodb
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mongodb
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-mongodb
+          image: "{{ .Values.image.registry }}/{{ .Values.mongodb.image }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.mongodb.service.port }}
+              name: zipkin-port
+              protocol: TCP
+          volumeMounts:
+            - name: {{ include "sitewhere-default.name" . }}-mongodb-pv
+              mountPath: /data/db
+      volumes:
+        - name: {{ include "sitewhere-default.name" . }}-mongodb-pv
+          persistentVolumeClaim:
+            claimName: {{ include "sitewhere-default.name" . }}-mongodb-pv-claim

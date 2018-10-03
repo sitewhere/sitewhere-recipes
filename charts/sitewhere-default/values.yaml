@@ -34,6 +34,12 @@ jaeger:
       zipkin: "9411"
       ui: "16686"
 
+mongodb:
+  image: mongo:3
+  replicaCount: 1
+  service:
+    port: 27017
+
 clusterDomain: cluster.local
 
 ## Kubernetes service type
