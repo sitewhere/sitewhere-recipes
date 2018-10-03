@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.name" . }}-kafka
+  name: {{ include "sitewhere-default.fullname" . }}-kafka
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}
@@ -24,30 +24,31 @@ spec:
           image: "{{ .Values.image.registry }}/{{ .Values.kafka.image }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.kafka.service.port }}
-              name: kafka
-              protocol: TCP
+            - name: inside
+              containerPort: {{ .Values.kafka.service.inside.port }}
+            - name: outside
+              containerPort: {{ .Values.kafka.service.outside.port }}
           env:       
             - name: "KAFKA_ADVERTISED_HOST_NAME"
-              value: "{{ .Chart.Name }}-kafka"
+              value: "{{ include "sitewhere-default.fullname" . }}-kafka-svc"
             - name: "KAFKA_BROKER_ID"
               value: "999"
             - name: "KAFKA_ZOOKEEPER_CONNECT"
-              value: "{{ include "sitewhere-default.fullname" . }}-zookeeper:2181"
+              value: "{{ include "sitewhere-default.fullname" . }}-zookeeper-svc:{{ .Values.zookeeper.service.port }}"
             - name: "KAFKA_LISTENER_SECURITY_PROTOCOL_MAP"
               value: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
             - name: "KAFKA_ADVERTISED_PROTOCOL_NAME"
               value: "OUTSIDE"
             - name: "KAFKA_ADVERTISED_PORT"
-              value: "{{ .Values.kafka.service.port }}"
+              value: "{{ .Values.kafka.service.outside.port }}"
             - name: "KAFKA_PROTOCOL_NAME"
               value: "INSIDE"
             - name: "KAFKA_PORT"
-              value: "9092"
+              value: "{{ .Values.kafka.service.inside.port }}"
           volumeMounts:
-            - name: {{ include "sitewhere-default.name" . }}-kafka-pv
+            - name: {{ include "sitewhere-default.fullname" . }}-kafka-pv
               mountPath: /kafka
       volumes:
-        - name: {{ include "sitewhere-default.name" . }}-kafka-pv
+        - name: {{ include "sitewhere-default.fullname" . }}-kafka-pv
           persistentVolumeClaim:
-            claimName: {{ include "sitewhere-default.name" . }}-kafka-pv-claim
+            claimName: {{ include "sitewhere-default.fullname" . }}-kafka-pvc

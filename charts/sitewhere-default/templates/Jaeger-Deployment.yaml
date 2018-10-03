@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.name" . }}-jaeger
+  name: {{ include "sitewhere-default.fullname" . }}-jaeger
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}

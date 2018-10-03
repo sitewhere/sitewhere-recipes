@@ -12,10 +12,12 @@ zookeeper:
   image: wurstmeister/zookeeper
   replicaCount: 1
   service:
+    type: ClusterIP
     port: 2181
   zoonavigator:
     image: elkozmon/zoonavigator-web:latest
     service:
+      type: ClusterIP
       port: 8000
   api:
     image: elkozmon/zoonavigator-api:latest
@@ -24,12 +26,17 @@ kafka:
   image: wurstmeister/kafka:1.0.0
   replicaCount: 1
   service:
-    port: 9094
+    type: ClusterIP
+    inside:
+      port: 9092
+    outside:
+      port: 9094
 
 jaeger:
   image: jaegertracing/all-in-one
   replicaCount: 1
   service:
+    type: ClusterIP
     ports:
       zipkin: "9411"
       ui: "16686"
@@ -38,6 +45,7 @@ mongodb:
   image: mongo:3
   replicaCount: 1
   service:
+    type: ClusterIP
     port: 27017
 
 mosquitto:
@@ -46,13 +54,21 @@ mosquitto:
   service:
     port: 1883
 
-clusterDomain: cluster.local
+services:
+  instance_management:
+    image: sitewhere/service-instance-management:2.0.0
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 9001
+  user_management:
+    image: sitewhere/service-user-management:2.0.0
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 9001
 
-## Kubernetes service type
-service:
-  annotations: {}
-  type: ClusterIP
-  port: 8080
+clusterDomain: cluster.local
 
   ## Specify the nodePort value for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport

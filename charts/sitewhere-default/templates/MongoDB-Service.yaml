@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-mongodb
+  name: {{ include "sitewhere-default.fullname" . }}-mongodb-svc
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.mongodb.service.type }}
   ports:
     - port: {{ .Values.mongodb.service.port }}
       targetPort: {{ .Values.mongodb.service.port }}

@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.name" . }}-mongodb
+  name: {{ include "sitewhere-default.fullname" . }}-mongodb
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}
@@ -28,9 +28,9 @@ spec:
               name: zipkin-port
               protocol: TCP
           volumeMounts:
-            - name: {{ include "sitewhere-default.name" . }}-mongodb-pv
+            - name: {{ include "sitewhere-default.fullname" . }}-mongodb-pv
               mountPath: /data/db
       volumes:
-        - name: {{ include "sitewhere-default.name" . }}-mongodb-pv
+        - name: {{ include "sitewhere-default.fullname" . }}-mongodb-pv
           persistentVolumeClaim:
-            claimName: {{ include "sitewhere-default.name" . }}-mongodb-pv-claim
+            claimName: {{ include "sitewhere-default.fullname" . }}-mongodb-pvc

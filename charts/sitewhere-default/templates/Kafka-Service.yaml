@@ -1,19 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-kafka
+  name: {{ include "sitewhere-default.fullname" . }}-kafka-svc
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.kafka.service.type }}
   ports:
-    - port: {{ .Values.kafka.service.port }}
-      targetPort: {{ .Values.kafka.service.port }}
+    - port: {{ .Values.kafka.service.inside.port }}
+      targetPort: {{ .Values.kafka.service.inside.port }}
       protocol: TCP
-      name: kafka-port
+      name: inside
+    - port: {{ .Values.kafka.service.outside.port }}
+      targetPort: {{ .Values.kafka.service.outside.port }}
+      name: outside
+      protocol: TCP
   selector:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-kafka
     app.kubernetes.io/instance: {{ .Release.Name }}

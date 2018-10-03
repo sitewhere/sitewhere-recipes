@@ -1,7 +1,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.name" . }}-zookeeper
+  name: {{ include "sitewhere-default.fullname" . }}-zookeeper
   labels:
     app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
     helm.sh/chart: {{ include "sitewhere-default.chart" . }}
@@ -31,7 +31,7 @@ spec:
             - name: "ZOOKEEPER_LOG4J_PROP"
               value: "INFO"
           volumeMounts:
-            - name: {{ include "sitewhere-default.name" . }}-zookeeper-pv
+            - name: {{ include "sitewhere-default.fullname" . }}-zookeeper-pv
               mountPath: /opt/zookeeper-3.4.9/data
         - name: {{ .Chart.Name }}-zoonavigator
           image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.zoonavigator.image }}"
@@ -54,6 +54,6 @@ spec:
           ports:
             - containerPort: 9000
       volumes:
-        - name: {{ include "sitewhere-default.name" . }}-zookeeper-pv
+        - name: {{ include "sitewhere-default.fullname" . }}-zookeeper-pv
           persistentVolumeClaim:
-            claimName: {{ include "sitewhere-default.name" . }}-zookeeper-pv-claim
+            claimName: {{ include "sitewhere-default.fullname" . }}-zookeeper-pvc
