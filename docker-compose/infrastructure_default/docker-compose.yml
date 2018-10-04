@@ -1,5 +1,15 @@
 version: '3.5'
 services:
+  consul:
+    image: consul
+    command: consul agent -server -client=0.0.0.0 -dev -ui -bootstrap -config-dir=/config
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"  
+    volumes:
+     - ${VOLUME_ROOT}/consul/config:/config/
+     
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
