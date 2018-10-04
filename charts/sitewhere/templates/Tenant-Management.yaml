@@ -34,6 +34,8 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
             - name: "mongodb.host"
               value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
+            - name: "MICROSERVICE_PORT_NAME"
+              value: "{{ include "sitewhere.fullname" . }}-tenant-management-svc"
 ---
 apiVersion: v1
 kind: Service

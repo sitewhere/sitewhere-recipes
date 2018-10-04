@@ -33,6 +33,8 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
             - name: "sitewhere.kafka.bootstrap.servers"
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
+            - name: "MICROSERVICE_PORT_NAME"
+              value: "{{ include "sitewhere.fullname" . }}-rule-processing-svc"
 ---
 apiVersion: v1
 kind: Service

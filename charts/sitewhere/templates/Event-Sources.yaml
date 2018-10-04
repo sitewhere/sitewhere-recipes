@@ -34,6 +34,8 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
             - name: "mqtt.host"
               value: "{{ include "sitewhere.fullname" . }}-mosquitto-svc"
+            - name: "MICROSERVICE_PORT_NAME"
+              value: "{{ include "sitewhere.fullname" . }}-event-sources-svc"
 ---
 apiVersion: v1
 kind: Service
