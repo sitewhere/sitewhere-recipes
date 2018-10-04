@@ -22,8 +22,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-instance-management
           image: "{{ .Values.image.registry }}/{{ .Values.services.instance_management.image }}"
-          # imagePullPolicy: {{ .Values.image.pullPolicy }}
-          imagePullPolicy: Never
+          imagePullPolicy: {{ .Values.services.instance_management.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.instance_management.service.port }}
           env:       

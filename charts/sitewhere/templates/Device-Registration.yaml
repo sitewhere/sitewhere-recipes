@@ -1,30 +1,30 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere.fullname" . }}-tenant-management
+  name: {{ include "sitewhere.fullname" . }}-device-registration
   labels:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}
     helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.services.tenant_management.replicaCount }}
+  replicas: {{ .Values.services.device_registration.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "sitewhere.name" . }}-tenant-management
+      app.kubernetes.io/name: {{ include "sitewhere.name" . }}-device-registration
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "sitewhere.name" . }}-tenant-management
+        app.kubernetes.io/name: {{ include "sitewhere.name" . }}-device-registration
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-tenant-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.tenant_management.image }}"
-          imagePullPolicy: {{ .Values.services.tenant_management.pullPolicy }}
+        - name: {{ .Chart.Name }}-device-registration
+          image: "{{ .Values.image.registry }}/{{ .Values.services.device_registration.image }}"
+          imagePullPolicy: {{ .Values.services.device_registration.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.services.tenant_management.service.port }}
+            - containerPort: {{ .Values.services.device_registration.service.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
@@ -32,25 +32,23 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
             - name: "sitewhere.kafka.bootstrap.servers"
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
-            - name: "mongodb.host"
-              value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sitewhere.fullname" . }}-tenant-management-svc
+  name: {{ include "sitewhere.fullname" . }}-device-registration-svc
   labels:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}
     helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.services.tenant_management.service.type }}
+  type: {{ .Values.services.device_registration.service.type }}
   ports:
-    - port: {{ .Values.services.tenant_management.service.port }}
-      targetPort: {{ .Values.services.tenant_management.service.port }}
+    - port: {{ .Values.services.device_registration.service.port }}
+      targetPort: {{ .Values.services.device_registration.service.port }}
       protocol: TCP
       name: grcp
   selector:
-    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-tenant-management
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-device-registration
     app.kubernetes.io/instance: {{ .Release.Name }}
