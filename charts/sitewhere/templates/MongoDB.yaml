@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.mongodb.replicaCount }}
+  replicas: {{ .Values.infra.mongodb.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mongodb
@@ -21,10 +21,10 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-mongodb
-          image: "{{ .Values.image.registry }}/{{ .Values.mongodb.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.mongodb.image }}"
+          imagePullPolicy: {{ .Values.infra.mongodb.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.mongodb.service.port }}
+            - containerPort: {{ .Values.infra.mongodb.service.port }}
               name: zipkin-port
               protocol: TCP
           volumeMounts:
@@ -45,10 +45,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.mongodb.service.type }}
+  type: {{ .Values.infra.mongodb.service.type }}
   ports:
-    - port: {{ .Values.mongodb.service.port }}
-      targetPort: {{ .Values.mongodb.service.port }}
+    - port: {{ .Values.infra.mongodb.service.port }}
+      targetPort: {{ .Values.infra.mongodb.service.port }}
       protocol: TCP
       name: mongodb-port
   selector:

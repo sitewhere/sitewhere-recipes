@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.mosquitto.replicaCount }}
+  replicas: {{ .Values.infra.mosquitto.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mosquitto
@@ -21,10 +21,10 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-mosquitto
-          image: "{{ .Values.image.registry }}/{{ .Values.mosquitto.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.mosquitto.image }}"
+          imagePullPolicy: {{ .Values.infra.mosquitto.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.mosquitto.service.port }}
+            - containerPort: {{ .Values.infra.mosquitto.service.port }}
               name: mosquitto-port
               protocol: TCP
 ---
@@ -38,10 +38,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.mosquitto.service.type }}
+  type: {{ .Values.infra.mosquitto.service.type }}
   ports:
-    - port: {{ .Values.mosquitto.service.port }}
-      targetPort: {{ .Values.mosquitto.service.port }}
+    - port: {{ .Values.infra.mosquitto.service.port }}
+      targetPort: {{ .Values.infra.mosquitto.service.port }}
       protocol: TCP
       name: mosquitto-port
   selector:

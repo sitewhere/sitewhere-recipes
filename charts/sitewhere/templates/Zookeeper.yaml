@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.zookeeper.replicaCount }}
+  replicas: {{ .Values.infra.zookeeper.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sitewhere.name" . }}-zookeeper
@@ -21,10 +21,10 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-zookeeper
-          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.zookeeper.image }}"
+          imagePullPolicy: {{ .Values.infra.zookeeper.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.zookeeper.service.port }}
+            - containerPort: {{ .Values.infra.zookeeper.service.port }}
               name: zookeeper
               protocol: TCP
           env:       
@@ -34,20 +34,20 @@ spec:
             - name: {{ include "sitewhere.fullname" . }}-zookeeper-pv
               mountPath: /opt/zookeeper-3.4.9/data
         - name: {{ .Chart.Name }}-zoonavigator
-          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.zoonavigator.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.zookeeper.zoonavigator.image }}"
+          imagePullPolicy: {{ .Values.infra.zookeeper.zoonavigator.pullPolicy }}
           env:       
             - name: "API_HOST"
               value: "localhost"
             - name: "API_PORT"
               value: "9000"
           ports:
-            - containerPort: {{ .Values.zookeeper.service.port }}
+            - containerPort: {{ .Values.infra.zookeeper.service.port }}
               name: zoonav-port
               protocol: TCP
         - name: {{ .Chart.Name }}-zoonavigator-api
-          image: "{{ .Values.image.registry }}/{{ .Values.zookeeper.api.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.zookeeper.api.image }}"
+          imagePullPolicy: {{ .Values.infra.zookeeper.api.pullPolicy }}
           env:       
             - name: "SERVER_HTTP_PORT"
               value: "9000"
@@ -68,10 +68,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.zookeeper.service.type }}
+  type: {{ .Values.infra.zookeeper.service.type }}
   ports:
-    - port: {{ .Values.zookeeper.service.port }}
-      targetPort: {{ .Values.zookeeper.service.port }}
+    - port: {{ .Values.infra.zookeeper.service.port }}
+      targetPort: {{ .Values.infra.zookeeper.service.port }}
       protocol: TCP
       name: zookeeper-port
   selector:
@@ -90,8 +90,8 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: {{ .Values.zookeeper.zoonavigator.service.port }}
-      targetPort: {{ .Values.zookeeper.zoonavigator.service.port }}
+    - port: {{ .Values.infra.zookeeper.zoonavigator.service.port }}
+      targetPort: {{ .Values.infra.zookeeper.zoonavigator.service.port }}
       portocol: TCP
       name: zoonav-port
   selector:

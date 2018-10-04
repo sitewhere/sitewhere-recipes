@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.jaeger.replicaCount }}
+  replicas: {{ .Values.infra.jaeger.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "sitewhere.name" . }}-jaeger
@@ -21,18 +21,18 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-jaeger
-          image: "{{ .Values.image.registry }}/{{ .Values.jaeger.image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image.registry }}/{{ .Values.infra.jaeger.image }}"
+          imagePullPolicy: {{ .Values.infra.jaeger.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.jaeger.service.ports.zipkin }}
+            - containerPort: {{ .Values.infra.jaeger.service.ports.zipkin }}
               name: zipkin-port
               protocol: TCP
-            - containerPort: {{ .Values.jaeger.service.ports.ui }}
+            - containerPort: {{ .Values.infra.jaeger.service.ports.ui }}
               name: ui-port
               protocol: TCP
           env:       
             - name: "COLLECTOR_ZIPKIN_HTTP_PORT"
-              value: "{{ .Values.jaeger.service.ports.zipkin }}"
+              value: "{{ .Values.infra.jaeger.service.ports.zipkin }}"
 ---
 apiVersion: v1
 kind: Service
@@ -44,14 +44,14 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: {{ .Values.jaeger.service.type }}
+  type: {{ .Values.infra.jaeger.service.type }}
   ports:
-    - port: {{ .Values.jaeger.service.ports.zipkin }}
-      targetPort: {{ .Values.jaeger.service.ports.zipkin }}
+    - port: {{ .Values.infra.jaeger.service.ports.zipkin }}
+      targetPort: {{ .Values.infra.jaeger.service.ports.zipkin }}
       protocol: TCP
       name: zipkin-port
-    - port: {{ .Values.jaeger.service.ports.ui }}
-      targetPort: {{ .Values.jaeger.service.ports.ui }}
+    - port: {{ .Values.infra.jaeger.service.ports.ui }}
+      targetPort: {{ .Values.infra.jaeger.service.ports.ui }}
       protocol: TCP
       name: ui-port
   selector:
