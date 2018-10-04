@@ -35,3 +35,23 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.kafka.service.inside.port }}"
             - name: "mongodb.host"
               value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sitewhere.fullname" . }}-tenant-management-svc
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.services.tenant_management.service.type }}
+  ports:
+    - port: {{ .Values.services.tenant_management.service.port }}
+      targetPort: {{ .Values.services.tenant_management.service.port }}
+      protocol: TCP
+      name: grcp
+  selector:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-tenant-management
+    app.kubernetes.io/instance: {{ .Release.Name }}

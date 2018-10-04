@@ -33,3 +33,27 @@ spec:
           env:       
             - name: "COLLECTOR_ZIPKIN_HTTP_PORT"
               value: "{{ .Values.jaeger.service.ports.zipkin }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sitewhere.fullname" . }}-jaeger-svc
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.jaeger.service.type }}
+  ports:
+    - port: {{ .Values.jaeger.service.ports.zipkin }}
+      targetPort: {{ .Values.jaeger.service.ports.zipkin }}
+      protocol: TCP
+      name: zipkin-port
+    - port: {{ .Values.jaeger.service.ports.ui }}
+      targetPort: {{ .Values.jaeger.service.ports.ui }}
+      protocol: TCP
+      name: ui-port
+  selector:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-jaeger
+    app.kubernetes.io/instance: {{ .Release.Name }}

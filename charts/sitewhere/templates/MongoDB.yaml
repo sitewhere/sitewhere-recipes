@@ -34,3 +34,23 @@ spec:
         - name: {{ include "sitewhere.fullname" . }}-mongodb-pv
           persistentVolumeClaim:
             claimName: {{ include "sitewhere.fullname" . }}-mongodb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sitewhere.fullname" . }}-mongodb-svc
+  labels:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.mongodb.service.type }}
+  ports:
+    - port: {{ .Values.mongodb.service.port }}
+      targetPort: {{ .Values.mongodb.service.port }}
+      protocol: TCP
+      name: mongodb-port
+  selector:
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mongodb
+    app.kubernetes.io/instance: {{ .Release.Name }}
