@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-mosquitto-svc
+  name: {{ include "sitewhere.fullname" . }}-mosquitto-svc
   labels:
-    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
-    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: mosquitto-port
   selector:
-    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mosquitto
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mosquitto
     app.kubernetes.io/instance: {{ .Release.Name }}

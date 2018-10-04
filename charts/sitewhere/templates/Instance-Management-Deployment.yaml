@@ -1,26 +1,26 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-service-instance-management
+  name: {{ include "sitewhere.fullname" . }}-instance-management
   labels:
-    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
-    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.services.instance_management.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-service-instance-management
+      app.kubernetes.io/name: {{ include "sitewhere.name" . }}-instance-management
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-service-instance-management
+        app.kubernetes.io/name: {{ include "sitewhere.name" . }}-instance-management
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-service-instance-management
+        - name: {{ .Chart.Name }}-instance-management
           image: "{{ .Values.image.registry }}/{{ .Values.services.instance_management.image }}"
           # imagePullPolicy: {{ .Values.image.pullPolicy }}
           imagePullPolicy: Never
@@ -28,10 +28,10 @@ spec:
             - containerPort: {{ .Values.services.instance_management.service.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
-              value: "{{ include "sitewhere-default.fullname" . }}-zookeeper-svc"
+              value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"
-              value: "{{ include "sitewhere-default.fullname" . }}-jaeger-svc"
+              value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
             - name: "sitewhere.kafka.bootstrap.servers"
-              value: "{{ include "sitewhere-default.fullname" . }}-kafka-svc:{{ .Values.kafka.service.inside.port }}"
+              value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.kafka.service.inside.port }}"
 
  

@@ -1,22 +1,22 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-mosquitto
+  name: {{ include "sitewhere.fullname" . }}-mosquitto
   labels:
-    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
-    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.mosquitto.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mosquitto
+      app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mosquitto
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-mosquitto
+        app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mosquitto
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:

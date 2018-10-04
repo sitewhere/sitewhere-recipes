@@ -5,7 +5,7 @@ image:
   ## Specify a imagePullPolicy
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 ## Kubernetes Cluster Domain
 
 zookeeper:
@@ -63,6 +63,12 @@ services:
       port: 9001
   user_management:
     image: sitewhere/service-user-management:2.0.0
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 9001
+  tenant_management:
+    image: sitewhere/service-tenant-management:2.0.0
     replicaCount: 1
     service:
       type: ClusterIP

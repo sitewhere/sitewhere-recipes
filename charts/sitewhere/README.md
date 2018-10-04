@@ -3,5 +3,5 @@
 To deploy SiteWhere default configuration in a Kubernetes clusters as a Helm Chart, run the command:
 
 ```sh
-helm install ./sitewhere-default
+helm install ./sitewhere
 ```

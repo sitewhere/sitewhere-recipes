@@ -1,26 +1,26 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ include "sitewhere-default.fullname" . }}-service-user-management
+  name: {{ include "sitewhere.fullname" . }}-user-management
   labels:
-    app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}
-    helm.sh/chart: {{ include "sitewhere-default.chart" . }}
+    app.kubernetes.io/name: {{ include "sitewhere.name" . }}
+    helm.sh/chart: {{ include "sitewhere.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.services.user_management.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-service-user-management
+      app.kubernetes.io/name: {{ include "sitewhere.name" . }}-user-management
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "sitewhere-default.name" . }}-service-user-management
+        app.kubernetes.io/name: {{ include "sitewhere.name" . }}-user-management
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-service-user-management
+        - name: {{ .Chart.Name }}-user-management
           image: "{{ .Values.image.registry }}/{{ .Values.services.user_management.image }}"
           # imagePullPolicy: {{ .Values.image.pullPolicy }}
           imagePullPolicy: Never
@@ -28,12 +28,10 @@ spec:
             - containerPort: {{ .Values.services.user_management.service.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
-              value: "{{ include "sitewhere-default.fullname" . }}-zookeeper-svc"
+              value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"
-              value: "{{ include "sitewhere-default.fullname" . }}-jaeger-svc"
+              value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
             - name: "sitewhere.kafka.bootstrap.servers"
-              value: "{{ include "sitewhere-default.fullname" . }}-kafka-svc:{{ .Values.kafka.service.inside.port }}"
+              value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.kafka.service.inside.port }}"
             - name: "mongodb.host"
-              value: "{{ include "sitewhere-default.fullname" . }}-mongodb-svc"
-            - name: "logging.level.org.apache.kafka"
-              value: "DEBUG"
+              value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
