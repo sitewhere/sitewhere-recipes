@@ -9,6 +9,7 @@ image:
 ## Kubernetes Cluster Domain
 
 infra:
+  profile: default
   zookeeper:
     image: wurstmeister/zookeeper
     pullPolicy: IfNotPresent
@@ -59,6 +60,8 @@ infra:
       port: 1883
 
 services:
+  # profile: default|minimal
+  profile: default
   instance_management:
     image: sitewhere/service-instance-management:2.0.0
     pullPolicy: Never

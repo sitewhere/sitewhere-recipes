@@ -5,3 +5,9 @@ To deploy SiteWhere default configuration in a Kubernetes clusters as a Helm Cha
 ```sh
 helm install ./sitewhere
 ```
+
+To run minimal recipes, run the following command:
+
+```sh
+helm install --set services.profile=minimal ./sitewhere
+```
