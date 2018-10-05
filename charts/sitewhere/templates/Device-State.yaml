@@ -19,13 +19,16 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "sitewhere.name" . }}-device-state
         app.kubernetes.io/instance: {{ .Release.Name }}
+        sitewhere.io/role: "microservice"
+        sitewhere.io/name: "device-state"
     spec:
       containers:
         - name: {{ .Chart.Name }}-device-state
           image: "{{ .Values.image.registry }}/{{ .Values.services.device_state.image }}"
           imagePullPolicy: {{ .Values.services.device_state.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.services.device_state.service.port }}
+            - containerPort: {{ .Values.services.device_state.service.grpc.api.port }}
+            - containerPort: {{ .Values.services.device_state.service.grpc.management.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
@@ -35,6 +38,7 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
             - name: "MICROSERVICE_PORT_NAME"
               value: "{{ include "sitewhere.fullname" . }}-device-state-svc"
+{{ include "sitewhere.initContainers" . | indent 6 }}
 ---
 apiVersion: v1
 kind: Service
@@ -48,10 +52,14 @@ metadata:
 spec:
   type: {{ .Values.services.device_state.service.type }}
   ports:
-    - port: {{ .Values.services.device_state.service.port }}
-      targetPort: {{ .Values.services.device_state.service.port }}
+    - port: {{ .Values.services.device_state.service.grpc.api.port }}
+      targetPort: {{ .Values.services.device_state.service.grpc.api.port }}
       protocol: TCP
-      name: grcp
+      name: grcp-api
+    - port: {{ .Values.services.device_state.service.grpc.management.port }}
+      targetPort: {{ .Values.services.device_state.service.grpc.management.port }}
+      protocol: TCP
+      name: grcp-mgn
   selector:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}-device-state
     app.kubernetes.io/instance: {{ .Release.Name }}

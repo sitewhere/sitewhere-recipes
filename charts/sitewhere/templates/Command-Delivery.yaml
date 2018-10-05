@@ -19,13 +19,16 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "sitewhere.name" . }}-command-delivery
         app.kubernetes.io/instance: {{ .Release.Name }}
+        sitewhere.io/role: "microservice"
+        sitewhere.io/name: "command-delivery"
     spec:
       containers:
         - name: {{ .Chart.Name }}-command-delivery
           image: "{{ .Values.image.registry }}/{{ .Values.services.command_delivery.image }}"
           imagePullPolicy: {{ .Values.services.command_delivery.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.services.command_delivery.service.port }}
+            - containerPort: {{ .Values.services.command_delivery.service.grpc.api.port }}
+            - containerPort: {{ .Values.services.command_delivery.service.grpc.management.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
@@ -37,6 +40,7 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-mosquitto-svc"
             - name: "MICROSERVICE_PORT_NAME"
               value: "{{ include "sitewhere.fullname" . }}-command-delivery-svc"
+{{ include "sitewhere.initContainers" . | indent 6 }}
 ---
 apiVersion: v1
 kind: Service
@@ -50,10 +54,14 @@ metadata:
 spec:
   type: {{ .Values.services.command_delivery.service.type }}
   ports:
-    - port: {{ .Values.services.command_delivery.service.port }}
-      targetPort: {{ .Values.services.command_delivery.service.port }}
+    - port: {{ .Values.services.command_delivery.service.grpc.api.port }}
+      targetPort: {{ .Values.services.command_delivery.service.grpc.api.port }}
       protocol: TCP
-      name: grcp
+      name: grcp-api
+    - port: {{ .Values.services.command_delivery.service.grpc.management.port }}
+      targetPort: {{ .Values.services.command_delivery.service.grpc.management.port }}
+      protocol: TCP
+      name: grcp-mgn
   selector:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}-command-delivery
     app.kubernetes.io/instance: {{ .Release.Name }}

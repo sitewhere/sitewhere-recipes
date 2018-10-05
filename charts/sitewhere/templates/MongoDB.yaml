@@ -18,6 +18,8 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "sitewhere.name" . }}-mongodb
         app.kubernetes.io/instance: {{ .Release.Name }}
+        sitewhere.io/role: "infraestructure"
+        sitewhere.io/name: "mongodb"
     spec:
       containers:
         - name: {{ .Chart.Name }}-mongodb

@@ -18,13 +18,16 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "sitewhere.name" . }}-outbound-connectors
         app.kubernetes.io/instance: {{ .Release.Name }}
+        sitewhere.io/role: "microservice"
+        sitewhere.io/name: "outbound-connectors"
     spec:
       containers:
         - name: {{ .Chart.Name }}-outbound-connectors
           image: "{{ .Values.image.registry }}/{{ .Values.services.outbound_connectors.image }}"
           imagePullPolicy: {{ .Values.services.outbound_connectors.pullPolicy }}
           ports:
-            - containerPort: {{ .Values.services.outbound_connectors.service.port }}
+            - containerPort: {{ .Values.services.outbound_connectors.service.grpc.api.port }}
+            - containerPort: {{ .Values.services.outbound_connectors.service.grpc.management.port }}
           env:       
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
@@ -36,6 +39,7 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-mosquitto-svc"
             - name: "MICROSERVICE_PORT_NAME"
               value: "{{ include "sitewhere.fullname" . }}-outbound-connectors-svc"
+{{ include "sitewhere.initContainers" . | indent 6 }}
 ---
 apiVersion: v1
 kind: Service
@@ -49,10 +53,14 @@ metadata:
 spec:
   type: {{ .Values.services.outbound_connectors.service.type }}
   ports:
-    - port: {{ .Values.services.outbound_connectors.service.port }}
-      targetPort: {{ .Values.services.outbound_connectors.service.port }}
+    - port: {{ .Values.services.outbound_connectors.service.grpc.api.port }}
+      targetPort: {{ .Values.services.outbound_connectors.service.grpc.api.port }}
       protocol: TCP
-      name: grcp
+      name: grcp-api
+    - port: {{ .Values.services.outbound_connectors.service.grpc.management.port }}
+      targetPort: {{ .Values.services.outbound_connectors.service.grpc.management.port }}
+      protocol: TCP
+      name: grcp-mgn
   selector:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}-outbound-connectors
     app.kubernetes.io/instance: {{ .Release.Name }}

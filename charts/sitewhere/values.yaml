@@ -68,126 +68,198 @@ services:
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   user_management:
     image: sitewhere/service-user-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   tenant_management:
     image: sitewhere/service-tenant-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   device_management:
     image: sitewhere/service-device-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   event_management:
     image: sitewhere/service-event-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   event_search:
     image: sitewhere/service-event-search:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   asset_management:
     image: sitewhere/service-asset-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   event_sources:
     image: sitewhere/service-event-sources:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   inbound_processing:
     image: sitewhere/service-inbound-processing:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   device_registration:
     image: sitewhere/service-device-registration:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   rule_processing:
     image: sitewhere/service-rule-processing:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   outbound_connectors:
     image: sitewhere/service-outbound-connectors:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   batch_operations:
     image: sitewhere/service-batch-operations:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   schedule_management:
     image: sitewhere/service-schedule-management:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   command_delivery:
     image: sitewhere/service-command-delivery:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   device_state:
     image: sitewhere/service-device-state:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   streaming_media:
     image: sitewhere/service-streaming-media:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   label_generation:
     image: sitewhere/service-label-generation:2.0.0
     pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
-      port: 9001
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
   web_rest:
     image: sitewhere/service-web-rest:2.0.0
     pullPolicy: Never
@@ -195,7 +267,10 @@ services:
     service:
       grpc:
         type: ClusterIP
-        port: 9001
+        api:
+          port: 9000
+        management:
+          port: 9001
       http:
         type: LoadBalancer
         port: 8080

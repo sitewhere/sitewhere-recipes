@@ -18,6 +18,8 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "sitewhere.name" . }}-zookeeper
         app.kubernetes.io/instance: {{ .Release.Name }}
+        sitewhere.io/role: "infraestructure"
+        sitewhere.io/name: "zookeeper"
     spec:
       containers:
         - name: {{ .Chart.Name }}-zookeeper
