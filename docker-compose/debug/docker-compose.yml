@@ -53,8 +53,8 @@ services:
     ports:
       - "8007:8001"
       - "1107:1107"
-      - "8500-8599:8500-8599/udp"
-      - "8500-8599:8500-8599/tcp"
+      - "8501-8519:8501-8519/udp"
+      - "8501-8519:8501-8519/tcp"
     env_file:
       - sitewhere-instance.env
     environment:
