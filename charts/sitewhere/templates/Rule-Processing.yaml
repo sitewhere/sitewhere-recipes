@@ -36,8 +36,10 @@ spec:
               value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
             - name: "sitewhere.kafka.bootstrap.servers"
               value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
-            - name: "MICROSERVICE_PORT_NAME"
-              value: "{{ include "sitewhere.fullname" . }}-rule-processing-svc"
+            - name: "sitewhere.consul.host"
+              value: "consul-server"
+            - name: "sitewhere.consul.port"
+              value: "8500"
 {{ include "sitewhere.initContainers" . | indent 6 }}
 ---
 apiVersion: v1

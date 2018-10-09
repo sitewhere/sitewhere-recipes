@@ -58,6 +58,65 @@ infra:
     replicaCount: 1
     service:
       port: 1883
+  consul:
+    image: consul
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      port: 8500
+    global:
+      domain: consul
+      datacenter: dc1
+    server:
+      enabled: "-"
+      image: null
+      replicas: 3
+      bootstrapExpect: 3 # Should <= replicas count
+
+      # storage and storageClass are the settings for configuring stateful
+      # storage for the server pods. storage should be set to the disk size of
+      # the attached volume. storageClass is the class of storage which defaults
+      # to null (the Kube cluster will pick the default).
+      storage: 10Gi
+      storageClass: null
+
+      # connect will enable Connect on all the servers, initializing a CA
+      # for Connect-related connections. Other customizations can be done
+      # via the extraConfig setting.
+      connect: true
+
+      # Resource requests, limits, etc. for the server cluster placement. This
+      # should map directly to the value of the resources field for a PodSpec.
+      # By default no direct resource request is made.
+      resources: {}
+
+      # updatePartition is used to control a careful rolling update of Consul
+      # servers. This should be done particularly when changing the version
+      # of Consul. Please refer to the documentation for more information.
+      updatePartition: 0
+
+      # disruptionBudget enables the creation of a PodDisruptionBudget to
+      # prevent voluntary degrading of the Consul server cluster.
+      disruptionBudget:
+        enabled: true
+
+        # maxUnavailable will default to (n/2)-1 where n is the number of
+        # replicas. If you'd like a custom value, you can specify an override here.
+        maxUnavailable: null
+
+      # extraConfig is a raw string of extra configuration to set with the
+      # server. This should be JSON or HCL.
+      extraConfig: |
+        {}
+
+      # extraVolumes is a list of extra volumes to mount. These will be exposed
+      # to Consul in the path `/consul/userconfig/<name>/`. The value below is
+      # an array of objects, examples are shown below.
+      extraVolumes: []
+        # - type: secret (or "configMap")
+        #   name: my-secret
+        #   load: false # if true, will add to `-config-dir` to load by Consul
+
 
 services:
   # profile: default|minimal
