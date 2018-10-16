@@ -28,7 +28,9 @@ spec:
           ports:
             - containerPort: {{ .Values.services.asset_management.service.grpc.api.port }}
             - containerPort: {{ .Values.services.asset_management.service.grpc.management.port }}
-          env:       
+          env:
+            - name: "kubernetesServiceName"
+              value: {{ include "sitewhere.fullname" . }}-asset-management-svc
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"
@@ -52,6 +54,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.services.asset_management.service.type }}
+  clusterIP: None
   ports:
     - port: {{ .Values.services.asset_management.service.grpc.api.port }}
       targetPort: {{ .Values.services.asset_management.service.grpc.api.port }}

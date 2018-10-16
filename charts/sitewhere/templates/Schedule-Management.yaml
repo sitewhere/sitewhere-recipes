@@ -53,6 +53,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.services.schedule_management.service.type }}
+  clusterIP: None
   ports:
     - port: {{ .Values.services.schedule_management.service.grpc.api.port }}
       targetPort: {{ .Values.services.schedule_management.service.grpc.api.port }}
