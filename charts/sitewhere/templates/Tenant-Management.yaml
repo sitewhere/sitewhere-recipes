@@ -28,19 +28,10 @@ spec:
           ports:
             - containerPort: {{ .Values.services.tenant_management.service.grpc.api.port }}
             - containerPort: {{ .Values.services.tenant_management.service.grpc.management.port }}
-          env:       
-            - name: "sitewhere.zookeeper.host"
-              value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
-            - name: "sitewhere.tracer.server"
-              value: "{{ include "sitewhere.fullname" . }}-jaeger-svc"
-            - name: "sitewhere.kafka.bootstrap.servers"
-              value: "{{ include "sitewhere.fullname" . }}-kafka-svc:{{ .Values.infra.kafka.service.inside.port }}"
-            - name: "mongodb.host"
-              value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
-            - name: "sitewhere.consul.host"
-              value: "consul-server"
-            - name: "sitewhere.consul.port"
-              value: "8500"
+          env:
+            - name: "sitewhere.service.portName"
+              value: "{{ include "sitewhere.fullname" . }}-tenant-management-svc"
+{{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 ---
 apiVersion: v1

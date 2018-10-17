@@ -35,6 +35,7 @@ spec:
           volumeMounts:
             - name: {{ include "sitewhere.fullname" . }}-zookeeper-pv
               mountPath: /opt/zookeeper-3.4.9/data
+{{- if eq .Values.services.profile "default" }}
         - name: {{ .Chart.Name }}-zoonavigator
           image: "{{ .Values.image.registry }}/{{ .Values.infra.zookeeper.zoonavigator.image }}"
           imagePullPolicy: {{ .Values.infra.zookeeper.zoonavigator.pullPolicy }}
@@ -55,6 +56,7 @@ spec:
               value: "9000"
           ports:
             - containerPort: 9000
+{{- end}}
       volumes:
         - name: {{ include "sitewhere.fullname" . }}-zookeeper-pv
           persistentVolumeClaim:
@@ -79,6 +81,7 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}-zookeeper
     app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if eq .Values.services.profile "default" }}
 ---
 apiVersion: v1
 kind: Service
@@ -99,3 +102,4 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "sitewhere.name" . }}-zookeeper
     app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end}}
