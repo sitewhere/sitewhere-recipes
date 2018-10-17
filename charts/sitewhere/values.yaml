@@ -1,0 +1,449 @@
+image:
+  registry: docker.io
+  repository: sitewhere/
+  tag: 2.0.rc2
+  ## Specify a imagePullPolicy
+  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  ##
+  pullPolicy: IfNotPresent
+## Kubernetes Cluster Domain
+
+infra:
+  profile: default
+  zookeeper:
+    image: wurstmeister/zookeeper
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 2181
+    zoonavigator:
+      image: elkozmon/zoonavigator-web:latest
+      pullPolicy: IfNotPresent
+      service:
+        type: ClusterIP
+        port: 8000
+    api:
+      image: elkozmon/zoonavigator-api:latest
+      pullPolicy: IfNotPresent
+  kafka:
+    image: wurstmeister/kafka:1.0.0
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      inside:
+        port: 9092
+      outside:
+        port: 9094
+  jaeger:
+    image: jaegertracing/all-in-one
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      ports:
+        zipkin: "9411"
+        ui: "16686"
+  mongodb:
+    image: mongo:3
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 27017
+  mosquitto:
+    image: eclipse-mosquitto:1.4.12
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      port: 1883
+  consul:
+    image: consul
+    pullPolicy: IfNotPresent
+    replicaCount: 1
+    service:
+      port: 8500
+    global:
+      domain: consul
+      datacenter: dc1
+    server:
+      enabled: "-"
+      image: null
+      replicas: 3
+      bootstrapExpect: 3 # Should <= replicas count
+
+      # storage and storageClass are the settings for configuring stateful
+      # storage for the server pods. storage should be set to the disk size of
+      # the attached volume. storageClass is the class of storage which defaults
+      # to null (the Kube cluster will pick the default).
+      storage: 10Gi
+      storageClass: null
+
+      # connect will enable Connect on all the servers, initializing a CA
+      # for Connect-related connections. Other customizations can be done
+      # via the extraConfig setting.
+      connect: true
+
+      # Resource requests, limits, etc. for the server cluster placement. This
+      # should map directly to the value of the resources field for a PodSpec.
+      # By default no direct resource request is made.
+      resources: {}
+
+      # updatePartition is used to control a careful rolling update of Consul
+      # servers. This should be done particularly when changing the version
+      # of Consul. Please refer to the documentation for more information.
+      updatePartition: 0
+
+      # disruptionBudget enables the creation of a PodDisruptionBudget to
+      # prevent voluntary degrading of the Consul server cluster.
+      disruptionBudget:
+        enabled: true
+
+        # maxUnavailable will default to (n/2)-1 where n is the number of
+        # replicas. If you'd like a custom value, you can specify an override here.
+        maxUnavailable: null
+
+      # extraConfig is a raw string of extra configuration to set with the
+      # server. This should be JSON or HCL.
+      extraConfig: |
+        {}
+
+      # extraVolumes is a list of extra volumes to mount. These will be exposed
+      # to Consul in the path `/consul/userconfig/<name>/`. The value below is
+      # an array of objects, examples are shown below.
+      extraVolumes: []
+        # - type: secret (or "configMap")
+        #   name: my-secret
+        #   load: false # if true, will add to `-config-dir` to load by Consul
+
+
+services:
+  # profile: default|minimal
+  profile: default
+  instance_management:
+    image: sitewhere/service-instance-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  user_management:
+    image: sitewhere/service-user-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  tenant_management:
+    image: sitewhere/service-tenant-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  device_management:
+    image: sitewhere/service-device-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  event_management:
+    image: sitewhere/service-event-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  event_search:
+    image: sitewhere/service-event-search:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  asset_management:
+    image: sitewhere/service-asset-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  event_sources:
+    image: sitewhere/service-event-sources:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  inbound_processing:
+    image: sitewhere/service-inbound-processing:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  device_registration:
+    image: sitewhere/service-device-registration:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  rule_processing:
+    image: sitewhere/service-rule-processing:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  outbound_connectors:
+    image: sitewhere/service-outbound-connectors:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  batch_operations:
+    image: sitewhere/service-batch-operations:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  schedule_management:
+    image: sitewhere/service-schedule-management:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  command_delivery:
+    image: sitewhere/service-command-delivery:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  device_state:
+    image: sitewhere/service-device-state:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  streaming_media:
+    image: sitewhere/service-streaming-media:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  label_generation:
+    image: sitewhere/service-label-generation:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      grpc:
+        api:
+          port: 9000
+        management:
+          port: 9001
+  web_rest:
+    image: sitewhere/service-web-rest:2.0.0
+    pullPolicy: Never
+    replicaCount: 1
+    service:
+      grpc:
+        type: ClusterIP
+        api:
+          port: 9000
+        management:
+          port: 9001
+      http:
+        type: LoadBalancer
+        port: 8080
+
+clusterDomain: cluster.local
+
+  ## Specify the nodePort value for the LoadBalancer and NodePort service types.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  # nodePort:
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+## Setting up replication
+## ref: https://github.com/bitnami/bitnami-docker-mongodb#setting-up-a-replication
+#
+replicaSet:
+  enabled: false
+  useHostnames: true
+
+  ## Name of the replica set
+  ##
+  name: rs0
+
+  ## Key used for replica set authentication
+  ##
+  # key: key
+
+  ## Number of replicas per each node type
+  ##
+  replicas:
+    secondary: 1
+    arbiter: 1
+  ## Pod Disruption Budget
+  ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
+  pdb:
+    minAvailable:
+      primary: 1
+      secondary: 1
+      arbiter: 1
+
+# Annotations to be added to MongoDB pods
+podAnnotations: {}
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 512Mi
+# requests:
+#   cpu: 100m
+#   memory: 256Mi
+
+## Node selector
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+nodeSelector: {}
+
+## Affinity
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
+## Tolerations
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  enabled: true
+  ## A manually managed Persistent Volume and Claim
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  # existingClaim:
+
+  ## mongodb data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+
+## Configure extra options for liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes)
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
