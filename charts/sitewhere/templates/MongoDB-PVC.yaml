@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  storageClassName: rook-ceph-block
+  storageClassName: {{ .Values.persistence.storageClass }}
   accessModes:
   - ReadWriteOnce
   resources:
