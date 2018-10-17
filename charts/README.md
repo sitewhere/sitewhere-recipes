@@ -39,3 +39,12 @@ To remove sitewhere, execute the following command
 ```sh
 helm del --purge sitewhere
 ```
+## Uninstall Rook
+
+Install rook with the following command:
+
+```
+kubectl delete -f rook/storageclass.yaml
+kubectl delete -f rook/cluster.yaml
+kubectl delete -f rook/operator.yaml
+```
