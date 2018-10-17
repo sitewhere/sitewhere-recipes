@@ -24,7 +24,7 @@ Also, if you wish to run SiteWhere in a low resource cluster, use the
 minimal recipes and install this Helm Chart with the following command:
 
 ```sh
-helm install --name sitewhere --set services.profile=minimal ./sitewhere
+    helm install --name sitewhere --set services.profile=minimal ./sitewhere
 ```
 
 If you don't need Rook.io, you can skip the Rook.io install and install
