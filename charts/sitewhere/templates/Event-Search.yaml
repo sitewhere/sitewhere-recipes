@@ -30,6 +30,8 @@ spec:
             - containerPort: {{ .Values.services.event_search.service.grpc.api.port }}
             - containerPort: {{ .Values.services.event_search.service.grpc.management.port }}
           env:       
+            - name: "kubernetesServiceName"
+              value: {{ include "sitewhere.fullname" . }}-event-search-svc
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"

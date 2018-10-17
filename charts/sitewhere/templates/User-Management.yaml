@@ -54,6 +54,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.services.user_management.service.type }}
+  clusterIP: None
   ports:
     - port: {{ .Values.services.user_management.service.grpc.api.port }}
       targetPort: {{ .Values.services.user_management.service.grpc.api.port }}

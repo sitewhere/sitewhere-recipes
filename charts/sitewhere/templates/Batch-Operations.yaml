@@ -30,6 +30,8 @@ spec:
             - containerPort: {{ .Values.services.batch_operations.service.grpc.api.port }}
             - containerPort: {{ .Values.services.batch_operations.service.grpc.management.port }}
           env:       
+            - name: "kubernetesServiceName"
+              value: {{ include "sitewhere.fullname" . }}-batch-operations-svc
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"
@@ -53,6 +55,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   type: {{ .Values.services.batch_operations.service.type }}
+  clusterIP: None
   ports:
     - port: {{ .Values.services.batch_operations.service.grpc.api.port }}
       targetPort: {{ .Values.services.batch_operations.service.grpc.api.port }}

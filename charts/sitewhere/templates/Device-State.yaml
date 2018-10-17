@@ -30,6 +30,8 @@ spec:
             - containerPort: {{ .Values.services.device_state.service.grpc.api.port }}
             - containerPort: {{ .Values.services.device_state.service.grpc.management.port }}
           env:       
+            - name: "kubernetesServiceName"
+              value: {{ include "sitewhere.fullname" . }}-device-state-svc
             - name: "sitewhere.zookeeper.host"
               value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
             - name: "sitewhere.tracer.server"
