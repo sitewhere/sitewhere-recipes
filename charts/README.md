@@ -4,21 +4,13 @@ To deploy SiteWhere default configuration in a Kubernetes clusters as a Helm Cha
 
 ## Install Rook
 
-Install rook with the following command:
+If you need File, Block, and Object Storage Services for your Cloud-Native Environments, install Rook.io, with the following commands:
 
 ```sh
 kubectl create -f rook/operator.yaml
 kubectl create -f rook/cluster.yaml
 kubectl create -f rook/storageclass.yaml
-```
-
-## Start Consul
-
-Start Consul running the following command:
-
-```sh
-helm install --name consul ./consul
-```
+``` 
 
 ## Start SiteWhere
 
@@ -28,10 +20,20 @@ To start default configuration run:
 helm install --name sitewhere ./sitewhere
 ```
 
-To run minimal recipes, run the following command:
+Also, if you wish to run SiteWhere in a low resource cluster, use the 
+minimal recipes and install this Helm Chart with the following command:
 
 ```sh
-helm install --name sitewhere --set services.profile=minimal ./sitewhere
+    helm install --name sitewhere --set services.profile=minimal ./sitewhere
+```
+
+If you don't need Rook.io, you can skip the Rook.io install and install
+SiteWhere Helm Chart setting the `persistence.storageClass` property to
+other than `rook-ceph-block`, for example to use `hostpath` Persistence
+Storage Class, use the following command:  
+
+```sh
+helm install --name sitewhere --set persistence.storageClass=hostpath ./sitewhere
 ```
 
 To remove sitewhere, execute the following command
@@ -42,10 +44,11 @@ helm del --purge sitewhere
 
 ## Uninstall Rook
 
-Install rook with the following command:
+To uninstall Rook.io use the following command:
 
 ```sh
-kubectl delete -f rook/storageclass.yaml
-kubectl delete -f rook/cluster.yaml
-kubectl delete -f rook/operator.yaml
+helm delete --purge rook-ceph
 ```
+
+Also, that a look at this [document](https://rook.io/docs/rook/v0.8/ceph-teardown.html)
+for further instructions on how to uninstall Rook.io from Kuberntes.

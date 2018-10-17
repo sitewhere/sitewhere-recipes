@@ -10,7 +10,7 @@
 - name: "mongodb.host"
   value: "{{ include "sitewhere.fullname" . }}-mongodb-svc"
 - name: "sitewhere.consul.host"
-  value: "consul-server"
+  value: "{{ include "sitewhere.fullname" . }}-consul-server"
 - name: "sitewhere.consul.port"
   value: "8500"
 {{- end }}
