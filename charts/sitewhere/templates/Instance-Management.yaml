@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-instance-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.instance_management.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.instance_management.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.instance_management.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.instance_management.service.grpc.api.port }}

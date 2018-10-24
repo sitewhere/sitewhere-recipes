@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-event-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.event_management.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.event_management.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.event_management.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.event_management.service.grpc.api.port }}

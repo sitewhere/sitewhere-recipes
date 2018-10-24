@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-kafka
-          image: "{{ .Values.image.registry }}/{{ .Values.infra.kafka.image }}"
+          image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.kafka.image }}"
           imagePullPolicy: {{ .Values.infra.kafka.pullPolicy }}
           ports:
             - name: inside

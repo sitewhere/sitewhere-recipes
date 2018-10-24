@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-user-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.user_management.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.user_management.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.user_management.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.user_management.service.grpc.api.port }}

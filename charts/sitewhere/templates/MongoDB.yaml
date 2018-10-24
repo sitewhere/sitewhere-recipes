@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-mongodb
-          image: "{{ .Values.image.registry }}/{{ .Values.infra.mongodb.image }}"
+          image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.mongodb.image }}"
           imagePullPolicy: {{ .Values.infra.mongodb.pullPolicy }}
           ports:
             - containerPort: {{ .Values.infra.mongodb.service.port }}

@@ -1,15 +1,9 @@
-image:
-  registry: docker.io
-  repository: sitewhere/
-  tag: 2.0.rc2
-  ## Specify a imagePullPolicy
-  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-  ##
-  pullPolicy: IfNotPresent
-## Kubernetes Cluster Domain
-
+# SiteWhere Infrastructur
 infra:
   profile: default
+  image:
+    registry: docker.io
+    pullPolicy: IfNotPresent
   zookeeper:
     image: wurstmeister/zookeeper
     pullPolicy: IfNotPresent
@@ -58,71 +52,17 @@ infra:
     replicaCount: 1
     service:
       port: 1883
-  consul:
-    image: consul
-    pullPolicy: IfNotPresent
-    replicaCount: 1
-    service:
-      port: 8500
-    global:
-      domain: consul
-      datacenter: dc1
-    server:
-      enabled: "-"
-      image: null
-      replicas: 3
-      bootstrapExpect: 3 # Should <= replicas count
-
-      # storage and storageClass are the settings for configuring stateful
-      # storage for the server pods. storage should be set to the disk size of
-      # the attached volume. storageClass is the class of storage which defaults
-      # to null (the Kube cluster will pick the default).
-      storage: 10Gi
-      storageClass: null
-
-      # connect will enable Connect on all the servers, initializing a CA
-      # for Connect-related connections. Other customizations can be done
-      # via the extraConfig setting.
-      connect: true
-
-      # Resource requests, limits, etc. for the server cluster placement. This
-      # should map directly to the value of the resources field for a PodSpec.
-      # By default no direct resource request is made.
-      resources: {}
-
-      # updatePartition is used to control a careful rolling update of Consul
-      # servers. This should be done particularly when changing the version
-      # of Consul. Please refer to the documentation for more information.
-      updatePartition: 0
-
-      # disruptionBudget enables the creation of a PodDisruptionBudget to
-      # prevent voluntary degrading of the Consul server cluster.
-      disruptionBudget:
-        enabled: true
-
-        # maxUnavailable will default to (n/2)-1 where n is the number of
-        # replicas. If you'd like a custom value, you can specify an override here.
-        maxUnavailable: null
-
-      # extraConfig is a raw string of extra configuration to set with the
-      # server. This should be JSON or HCL.
-      extraConfig: |
-        {}
-
-      # extraVolumes is a list of extra volumes to mount. These will be exposed
-      # to Consul in the path `/consul/userconfig/<name>/`. The value below is
-      # an array of objects, examples are shown below.
-      extraVolumes: []
-        # - type: secret (or "configMap")
-        #   name: my-secret
-        #   load: false # if true, will add to `-config-dir` to load by Consul
-
 
 services:
   # profile: default|minimal
+  image:
+    registry: docker.io
+    repository: sitewhere
+    tag: 2.0.0
+    pullPolicy: Never
   profile: default
   instance_management:
-    image: sitewhere/service-instance-management:2.0.0
+    image: service-instance-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -133,7 +73,7 @@ services:
         management:
           port: 9001
   user_management:
-    image: sitewhere/service-user-management:2.0.0
+    image: service-user-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -144,7 +84,7 @@ services:
         management:
           port: 9001
   tenant_management:
-    image: sitewhere/service-tenant-management:2.0.0
+    image: service-tenant-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -155,7 +95,7 @@ services:
         management:
           port: 9001
   device_management:
-    image: sitewhere/service-device-management:2.0.0
+    image: service-device-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -166,7 +106,7 @@ services:
         management:
           port: 9001
   event_management:
-    image: sitewhere/service-event-management:2.0.0
+    image: service-event-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -177,7 +117,7 @@ services:
         management:
           port: 9001
   event_search:
-    image: sitewhere/service-event-search:2.0.0
+    image: service-event-search
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -188,7 +128,7 @@ services:
         management:
           port: 9001
   asset_management:
-    image: sitewhere/service-asset-management:2.0.0
+    image: service-asset-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -199,7 +139,7 @@ services:
         management:
           port: 9001
   event_sources:
-    image: sitewhere/service-event-sources:2.0.0
+    image: service-event-sources
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -210,7 +150,7 @@ services:
         management:
           port: 9001
   inbound_processing:
-    image: sitewhere/service-inbound-processing:2.0.0
+    image: service-inbound-processing
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -221,7 +161,7 @@ services:
         management:
           port: 9001
   device_registration:
-    image: sitewhere/service-device-registration:2.0.0
+    image: service-device-registration
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -232,7 +172,7 @@ services:
         management:
           port: 9001
   rule_processing:
-    image: sitewhere/service-rule-processing:2.0.0
+    image: service-rule-processing
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -243,7 +183,7 @@ services:
         management:
           port: 9001
   outbound_connectors:
-    image: sitewhere/service-outbound-connectors:2.0.0
+    image: service-outbound-connectors
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -254,7 +194,7 @@ services:
         management:
           port: 9001
   batch_operations:
-    image: sitewhere/service-batch-operations:2.0.0
+    image: service-batch-operations
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -265,7 +205,7 @@ services:
         management:
           port: 9001
   schedule_management:
-    image: sitewhere/service-schedule-management:2.0.0
+    image: service-schedule-management
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -276,7 +216,7 @@ services:
         management:
           port: 9001
   command_delivery:
-    image: sitewhere/service-command-delivery:2.0.0
+    image: service-command-delivery
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -287,7 +227,7 @@ services:
         management:
           port: 9001
   device_state:
-    image: sitewhere/service-device-state:2.0.0
+    image: service-device-state
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -298,7 +238,7 @@ services:
         management:
           port: 9001
   streaming_media:
-    image: sitewhere/service-streaming-media:2.0.0
+    image: service-streaming-media
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -309,7 +249,7 @@ services:
         management:
           port: 9001
   label_generation:
-    image: sitewhere/service-label-generation:2.0.0
+    image: service-label-generation
     pullPolicy: Never
     replicaCount: 1
     service:
@@ -320,7 +260,7 @@ services:
         management:
           port: 9001
   web_rest:
-    image: sitewhere/service-web-rest:2.0.0
+    image: service-web-rest
     pullPolicy: Never
     replicaCount: 1
     service:

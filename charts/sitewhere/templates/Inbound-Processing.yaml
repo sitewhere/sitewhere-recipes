@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-inbound-processing
-          image: "{{ .Values.image.registry }}/{{ .Values.services.inbound_processing.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.inbound_processing.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.inbound_processing.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.inbound_processing.service.grpc.api.port }}

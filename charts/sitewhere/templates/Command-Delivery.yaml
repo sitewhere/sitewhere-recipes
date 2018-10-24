@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-command-delivery
-          image: "{{ .Values.image.registry }}/{{ .Values.services.command_delivery.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.command_delivery.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.command_delivery.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.command_delivery.service.grpc.api.port }}

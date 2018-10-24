@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-device-registration
-          image: "{{ .Values.image.registry }}/{{ .Values.services.device_registration.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.device_registration.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.device_registration.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.device_registration.service.grpc.api.port }}

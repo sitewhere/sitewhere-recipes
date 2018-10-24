@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-streaming-media
-          image: "{{ .Values.image.registry }}/{{ .Values.services.streaming_media.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.streaming_media.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.streaming_media.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.streaming_media.service.grpc.api.port }}

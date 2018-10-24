@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-outbound-connectors
-          image: "{{ .Values.image.registry }}/{{ .Values.services.outbound_connectors.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.outbound_connectors.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.outbound_connectors.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.outbound_connectors.service.grpc.api.port }}

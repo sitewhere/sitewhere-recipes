@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-mosquitto
-          image: "{{ .Values.image.registry }}/{{ .Values.infra.mosquitto.image }}"
+          image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.mosquitto.image }}"
           imagePullPolicy: {{ .Values.infra.mosquitto.pullPolicy }}
           ports:
             - containerPort: {{ .Values.infra.mosquitto.service.port }}

@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-batch-operations
-          image: "{{ .Values.image.registry }}/{{ .Values.services.batch_operations.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.batch_operations.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.batch_operations.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.batch_operations.service.grpc.api.port }}

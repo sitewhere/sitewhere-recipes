@@ -23,8 +23,8 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-asset-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.asset_management.image }}"
-          imagePullPolicy: {{ .Values.services.asset_management.pullPolicy }}
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.asset_management.image }}:{{ .Values.services.image.tag }}"
+          imagePullPolicy: {{ .Values.services.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.asset_management.service.grpc.api.port }}
             - containerPort: {{ .Values.services.asset_management.service.grpc.management.port }}

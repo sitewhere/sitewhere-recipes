@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-device-management
-          image: "{{ .Values.image.registry }}/{{ .Values.services.device_management.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.device_management.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.device_management.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.device_management.service.grpc.api.port }}

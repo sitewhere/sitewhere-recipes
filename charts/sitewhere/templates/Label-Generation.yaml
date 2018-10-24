@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-label-generation
-          image: "{{ .Values.image.registry }}/{{ .Values.services.label_generation.image }}"
+          image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.label_generation.image }}:{{ .Values.services.image.tag }}"
           imagePullPolicy: {{ .Values.services.label_generation.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.label_generation.service.grpc.api.port }}
