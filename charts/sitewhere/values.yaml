@@ -4,6 +4,7 @@ infra:
   image:
     registry: docker.io
     pullPolicy: IfNotPresent
+    imagePullSecrets: "-"
   zookeeper:
     image: wurstmeister/zookeeper
     pullPolicy: IfNotPresent
@@ -60,6 +61,7 @@ services:
     repository: sitewhere
     tag: 2.0.0
     pullPolicy: Never
+    imagePullSecrets: "-"
   profile: default
   instance_management:
     image: service-instance-management

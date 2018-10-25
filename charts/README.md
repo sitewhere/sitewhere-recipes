@@ -10,7 +10,7 @@ If you need File, Block, and Object Storage Services for your Cloud-Native Envir
 kubectl create -f rook/operator.yaml
 kubectl create -f rook/cluster.yaml
 kubectl create -f rook/storageclass.yaml
-``` 
+```
 
 ## Start SiteWhere
 
