@@ -63,6 +63,7 @@ services:
     pullPolicy: Never
     imagePullSecrets: "-"
   profile: default
+  initContainers: true
   instance_management:
     image: service-instance-management
     pullPolicy: Never
