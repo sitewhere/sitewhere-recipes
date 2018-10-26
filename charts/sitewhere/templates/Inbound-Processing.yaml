@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-inbound-processing
           image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.inbound_processing.image }}:{{ .Values.services.image.tag }}"
-          imagePullPolicy: {{ .Values.services.inbound_processing.pullPolicy }}
+          imagePullPolicy: {{ .Values.services.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.inbound_processing.service.grpc.api.port }}
             - containerPort: {{ .Values.services.inbound_processing.service.grpc.management.port }}

@@ -25,7 +25,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-event-search
           image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.event_search.image }}:{{ .Values.services.image.tag }}"
-          imagePullPolicy: {{ .Values.services.event_search.pullPolicy }}
+          imagePullPolicy: {{ .Values.services.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.event_search.service.grpc.api.port }}
             - containerPort: {{ .Values.services.event_search.service.grpc.management.port }}

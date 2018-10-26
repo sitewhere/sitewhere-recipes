@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-mosquitto
           image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.mosquitto.image }}"
-          imagePullPolicy: {{ .Values.infra.mosquitto.pullPolicy }}
+          imagePullPolicy: {{ .Values.infra.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.infra.mosquitto.service.port }}
               name: mosquitto-port

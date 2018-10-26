@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-zookeeper
           image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.zookeeper.image }}"
-          imagePullPolicy: {{ .Values.infra.zookeeper.pullPolicy }}
+          imagePullPolicy: {{ .Values.infra.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.infra.zookeeper.service.port }}
               name: zookeeper

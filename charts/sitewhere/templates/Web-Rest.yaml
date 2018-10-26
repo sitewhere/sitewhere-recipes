@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-web-rest
           image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.web_rest.image }}:{{ .Values.services.image.tag }}"
-          imagePullPolicy: {{ .Values.services.web_rest.pullPolicy }}
+          imagePullPolicy: {{ .Values.services.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.web_rest.service.grpc.api.port }}
             - containerPort: {{ .Values.services.web_rest.service.grpc.management.port }}

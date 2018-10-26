@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-jaeger
           image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.jaeger.image }}"
-          imagePullPolicy: {{ .Values.infra.jaeger.pullPolicy }}
+          imagePullPolicy: {{ .Values.infra.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.infra.jaeger.service.ports.zipkin }}
               name: zipkin-port

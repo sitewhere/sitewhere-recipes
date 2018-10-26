@@ -24,7 +24,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-kafka
           image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.kafka.image }}"
-          imagePullPolicy: {{ .Values.infra.kafka.pullPolicy }}
+          imagePullPolicy: {{ .Values.infra.image.pullPolicy }}
           ports:
             - name: inside
               containerPort: {{ .Values.infra.kafka.service.inside.port }}

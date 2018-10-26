@@ -7,23 +7,19 @@ infra:
     imagePullSecrets: "-"
   zookeeper:
     image: wurstmeister/zookeeper
-    pullPolicy: IfNotPresent
     replicaCount: 1
     service:
       type: ClusterIP
       port: 2181
     zoonavigator:
       image: elkozmon/zoonavigator-web:latest
-      pullPolicy: IfNotPresent
       service:
         type: ClusterIP
         port: 8000
     api:
       image: elkozmon/zoonavigator-api:latest
-      pullPolicy: IfNotPresent
   kafka:
     image: wurstmeister/kafka:1.0.0
-    pullPolicy: IfNotPresent
     replicaCount: 1
     service:
       type: ClusterIP
@@ -33,7 +29,6 @@ infra:
         port: 9094
   jaeger:
     image: jaegertracing/all-in-one
-    pullPolicy: IfNotPresent
     replicaCount: 1
     service:
       type: ClusterIP
@@ -42,14 +37,12 @@ infra:
         ui: "16686"
   mongodb:
     image: mongo:3
-    pullPolicy: IfNotPresent
     replicaCount: 1
     service:
       type: ClusterIP
       port: 27017
   mosquitto:
     image: eclipse-mosquitto:1.4.12
-    pullPolicy: IfNotPresent
     replicaCount: 1
     service:
       port: 1883
@@ -66,7 +59,6 @@ services:
   initContainers: true
   instance_management:
     image: service-instance-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -77,7 +69,6 @@ services:
           port: 9001
   user_management:
     image: service-user-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -88,7 +79,6 @@ services:
           port: 9001
   tenant_management:
     image: service-tenant-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -99,7 +89,6 @@ services:
           port: 9001
   device_management:
     image: service-device-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -110,7 +99,6 @@ services:
           port: 9001
   event_management:
     image: service-event-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -121,7 +109,6 @@ services:
           port: 9001
   event_search:
     image: service-event-search
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -132,7 +119,6 @@ services:
           port: 9001
   asset_management:
     image: service-asset-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -143,7 +129,6 @@ services:
           port: 9001
   event_sources:
     image: service-event-sources
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -154,7 +139,6 @@ services:
           port: 9001
   inbound_processing:
     image: service-inbound-processing
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -165,7 +149,6 @@ services:
           port: 9001
   device_registration:
     image: service-device-registration
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -176,7 +159,6 @@ services:
           port: 9001
   rule_processing:
     image: service-rule-processing
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -187,7 +169,6 @@ services:
           port: 9001
   outbound_connectors:
     image: service-outbound-connectors
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -198,7 +179,6 @@ services:
           port: 9001
   batch_operations:
     image: service-batch-operations
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -209,7 +189,6 @@ services:
           port: 9001
   schedule_management:
     image: service-schedule-management
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -220,7 +199,6 @@ services:
           port: 9001
   command_delivery:
     image: service-command-delivery
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -231,7 +209,6 @@ services:
           port: 9001
   device_state:
     image: service-device-state
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -242,7 +219,6 @@ services:
           port: 9001
   streaming_media:
     image: service-streaming-media
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -253,7 +229,6 @@ services:
           port: 9001
   label_generation:
     image: service-label-generation
-    pullPolicy: Never
     replicaCount: 1
     service:
       type: ClusterIP
@@ -264,7 +239,6 @@ services:
           port: 9001
   web_rest:
     image: service-web-rest
-    pullPolicy: Never
     replicaCount: 1
     service:
       grpc:

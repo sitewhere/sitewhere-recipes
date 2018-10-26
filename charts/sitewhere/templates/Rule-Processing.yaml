@@ -25,7 +25,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-rule-processing
           image: "{{ .Values.services.image.registry }}/{{ .Values.services.image.repository }}/{{ .Values.services.rule_processing.image }}:{{ .Values.services.image.tag }}"
-          imagePullPolicy: {{ .Values.services.rule_processing.pullPolicy }}
+          imagePullPolicy: {{ .Values.services.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.services.rule_processing.service.grpc.api.port }}
             - containerPort: {{ .Values.services.rule_processing.service.grpc.management.port }}
