@@ -37,7 +37,7 @@ spec:
               mountPath: /opt/zookeeper-3.4.9/data
 {{- if eq .Values.services.profile "default" }}
         - name: {{ .Chart.Name }}-zoonavigator
-          image: "{{ .Values.infra.imageregistry }}/{{ .Values.infra.zookeeper.zoonavigator.image }}"
+          image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.zookeeper.zoonavigator.image }}"
           imagePullPolicy: {{ .Values.infra.zookeeper.zoonavigator.pullPolicy }}
           env:       
             - name: "API_HOST"
@@ -49,7 +49,7 @@ spec:
               name: zoonav-port
               protocol: TCP
         - name: {{ .Chart.Name }}-zoonavigator-api
-          image: "{{ .Values.infra.imageregistry }}/{{ .Values.infra.zookeeper.api.image }}"
+          image: "{{ .Values.infra.image.registry }}/{{ .Values.infra.zookeeper.api.image }}"
           imagePullPolicy: {{ .Values.infra.zookeeper.api.pullPolicy }}
           env:       
             - name: "SERVER_HTTP_PORT"
