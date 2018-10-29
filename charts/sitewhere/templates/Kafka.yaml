@@ -1,5 +1,5 @@
-apiVersion: apps/v1beta2
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: {{ include "sitewhere.fullname" . }}-kafka
   labels:
@@ -60,6 +60,18 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "sitewhere.fullname" . }}-kafka-pvc
 {{ include "sitewhere.infra.imagePullSecrets" . | indent 6 }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "sitewhere.fullname" . }}-kafka-pv
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.persistence.storage }}
+        {{- if .Values.persistence.storageClass }}
+        storageClassName: {{ .Values.persistence.storageClass }}
+        {{- end }}
 ---
 apiVersion: v1
 kind: Service

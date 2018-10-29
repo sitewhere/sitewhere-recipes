@@ -338,7 +338,7 @@ persistence:
   storageClass: rook-ceph-block
   accessModes:
     - ReadWriteOnce
-  size: 8Gi
+  storage: 10Gi
   annotations: {}
 
 ## Configure extra options for liveness and readiness probes
