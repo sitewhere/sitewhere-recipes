@@ -30,8 +30,6 @@ spec:
             - containerPort: {{ .Values.services.command_delivery.service.grpc.api.port }}
             - containerPort: {{ .Values.services.command_delivery.service.grpc.management.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-command-delivery-svc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

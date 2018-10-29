@@ -30,8 +30,6 @@ spec:
             - containerPort: {{ .Values.services.event_search.service.grpc.api.port }}
             - containerPort: {{ .Values.services.event_search.service.grpc.management.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-event-search-svc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

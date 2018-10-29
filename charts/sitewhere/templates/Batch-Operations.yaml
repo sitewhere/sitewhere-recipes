@@ -29,9 +29,7 @@ spec:
           ports:
             - containerPort: {{ .Values.services.batch_operations.service.grpc.api.port }}
             - containerPort: {{ .Values.services.batch_operations.service.grpc.management.port }}
-          env:       
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-batch-operations-svc"
+          env:
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

@@ -30,8 +30,6 @@ spec:
             - containerPort: {{ .Values.services.device_state.service.grpc.api.port }}
             - containerPort: {{ .Values.services.device_state.service.grpc.management.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-device-state-svc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

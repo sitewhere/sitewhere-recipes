@@ -42,6 +42,17 @@ To remove sitewhere, execute the following command
 helm del --purge sitewhere
 ```
 
+## Using private repositories
+
+```sh
+kubectl create secret docker-registry sitewhere-harbor-cred \
+--docker-server=https://<docker.repository.fqdn> \
+--docker-username=sitewhere \
+--docker-password=SiteWhere1234 \
+--docker-email=sitewhere@sitewhere.com 
+secret/sitewhere-harbor-cred created
+```
+
 ## Uninstall Rook
 
 To uninstall Rook.io use the following command:

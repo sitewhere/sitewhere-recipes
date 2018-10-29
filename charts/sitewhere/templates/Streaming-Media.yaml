@@ -30,8 +30,6 @@ spec:
             - containerPort: {{ .Values.services.streaming_media.service.grpc.api.port }}
             - containerPort: {{ .Values.services.streaming_media.service.grpc.management.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-streaming-media-svc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

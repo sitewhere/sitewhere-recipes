@@ -29,8 +29,6 @@ spec:
             - containerPort: {{ .Values.services.outbound_connectors.service.grpc.api.port }}
             - containerPort: {{ .Values.services.outbound_connectors.service.grpc.management.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-outbound-connectors-svc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}

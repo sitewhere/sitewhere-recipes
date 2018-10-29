@@ -30,8 +30,6 @@ spec:
             - containerPort: {{ .Values.services.web_rest.service.grpc.management.port }}
             - containerPort: {{ .Values.services.web_rest.service.http.port }}
           env:
-            - name: "sitewhere.service.portName"
-              value: "{{ include "sitewhere.fullname" . }}-web-rest-grpc"
 {{ include "sitewhere.microserviceEnvValues" . | indent 12 }}
 {{ include "sitewhere.initContainers" . | indent 6 }}
 {{ include "sitewhere.services.imagePullSecrets" . | indent 6 }}
