@@ -1,4 +1,8 @@
 {{- define "sitewhere.microserviceEnvValues" }}
+- name: "sitewhere.k8s.pod.ip"
+  valueFrom:
+    fieldRef:
+      fieldPath: status.podIP
 - name: "sitewhere.zookeeper.host"
   value: "{{ include "sitewhere.fullname" . }}-zookeeper-svc"
 - name: "sitewhere.tracer.server"
